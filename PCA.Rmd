@@ -1,0 +1,70 @@
+
+Part1 From Last Class
+
+```{r}
+library(readxl)
+d = read_excel("./tyield.xlsx", sheet="Data")
+d = data.frame(d)
+head(d)
+```
+
+```{r}
+d_centered = scale(d, center=TRUE, scale=FALSE)
+covmat = cov(d_centered)
+#eigen dataframe
+e = eigen(covmat) 
+
+#eigne vector
+loadings = e$vectors
+
+#eigen value
+values = e$values
+
+#PCA analysis result
+k = 3
+pc = as.matrix(d) %*% loadings[,1:k]
+head(pc)
+```
+
+```{r}
+loadings[,1:3]
+```
+
+```{r}
+values
+```
+
+
+```{r}
+#Plot the first three loading vectors and interpret them.
+
+plot(loadings[,1])
+plot(loadings[,2])
+plot(loadings[,3])
+
+```
+
+Part2 
+
+```{r}
+key_rates = d[5:10]
+
+s1 = sd(d$X1.YR)
+s2 = sd(d$X2.YR)
+s3 = sd(d$X3.YR)
+s5 = sd(d$X5.YR)
+s7 = sd(d$X7.YR)
+s10 = sd(d$X10.YR)
+
+#sigma for key rates
+c(s1, s2, s3, s5, s7, s10)
+
+```
+
+```{r}
+
+cor(d)
+
+```
+
+
